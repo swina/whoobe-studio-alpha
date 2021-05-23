@@ -148,6 +148,8 @@ export default {
         //if ( this.$attrs.config.mode != 'static' ){
             //this.$http.get('products').then ( res => {
             this.lang = this.language[navigator.language||'en']
+            !this.lang ? this.lang = this.language['en'] : null
+            console.log ( this.lang )
             this.qry()
         //} else {
         //    this.products = products
