@@ -8,7 +8,7 @@
         </div>
         <!-- <div v-if="!apikey" class="text-center w-full border-4 bg-gray-300 text-lg text-red-500">Invalid License Key</div> -->
         <h3 id="storeTop">Store</h3>
-        <p>{{ lang.products }} {{total}}</p>
+        <!-- <p>{{ lang.products }} {{total}}</p> -->
         <div class="w-full text-center cursor-pointer">
             <i class="mr-4 bi-chevron-left" @click="start > 0 ? start=start-limit : null"></i>
             <small>{{start+1}}-{{start+limit}}</small>
@@ -123,7 +123,7 @@ export default {
     },
     mounted(){
         this.lang = language[navigator.language||'en']
-        let whoobe = JSON.parse(window.localStorage.getItem('whoobe'))
+        //let whoobe = JSON.parse(window.localStorage.getItem('whoobe'))
         console.log ( this.$attrs.plugin.editor.settings )
         
         //if ( this.$attrs.config.mode != 'static' ){
