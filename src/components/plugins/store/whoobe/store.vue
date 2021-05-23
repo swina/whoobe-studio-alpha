@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" v-if="products">
     <div class="relative">
         <div class="absolute right-0 top-0 text-xs flex flex-row items-center snipcart-checkout">
             <span class="snipcart-items-count"></span>
