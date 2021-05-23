@@ -1,5 +1,5 @@
 <template>
-    <div class="" v-if="products && lang">
+    <div class="" v-if="products">
     <div class="relative">
         <div class="absolute right-0 top-0 text-xs flex flex-row items-center snipcart-checkout">
             <span class="snipcart-items-count"></span>
@@ -8,7 +8,7 @@
         </div>
         <!-- <div v-if="!apikey" class="text-center w-full border-4 bg-gray-300 text-lg text-red-500">Invalid License Key</div> -->
         <h3 id="storeTop">Store</h3>
-        <p>{{ lang.products }} {{total}}</p>
+        <p v-if="lang">{{ lang.products }} {{total}}</p>
         <div class="w-full text-center cursor-pointer">
             <i class="mr-4 bi-chevron-left" @click="start > 0 ? start=start-limit : null"></i>
             <small>{{start+1}}-{{start+limit}}</small>
@@ -84,6 +84,7 @@ export default {
     name: 'WhoobeStore',
     data:()=>({
         apikey: false,
+        lang: null,
         language : {
             en : {
                 products: 'Products',
@@ -110,9 +111,6 @@ export default {
         limit(){
             return parseInt(this.$attrs.plugin.editor.settings.rows)
         },
-        lang(){
-            return this.language[navigator.language||'en'] 
-        }
     },
     watch:{
         start(){
@@ -149,6 +147,7 @@ export default {
         //console.log ( this.$attrs.plugin.editor.settings )
         //if ( this.$attrs.config.mode != 'static' ){
             //this.$http.get('products').then ( res => {
+            this.lang = this.language[navigator.language||'en']
             this.qry()
         //} else {
         //    this.products = products
