@@ -54,7 +54,7 @@ Vue.component('simple-svg', SimpleSVG)
 //import vueCustomElement from 'vue-custom-element'
 //Vue.use(vueCustomElement);
 
-window.localStorage.setItem('whoobe-cms','http://localhost:3030/')
+window.localStorage.setItem('whoobe-cms' , process.env.VUE_APP_API_URL )
 
 //import WhoobeStore from './components/plugins/store/nuxpresso/custom'
 //Vue.customElement ( 'whoobe-store' , WhoobeStore )
