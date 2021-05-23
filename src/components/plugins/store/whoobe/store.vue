@@ -78,13 +78,28 @@
 </template>
 
 <script>
-import language from './en.js'
+//import language from '@/components/plugins/store/whoobe/en.js'
 //import MokaPreview from '@/components/editor/preview/moka.preview.container'
 export default {
     name: 'WhoobeStore',
     data:()=>({
         apikey: false,
-        //lang: 'en',
+        language : {
+            en : {
+                products: 'Products',
+                buy : 'Buy',
+                add_to_cart: 'Add to cart',
+                checkout: 'Checkout',
+                detail: 'Detail'
+            },
+            it : {
+                products: 'Prodotti',
+                buy : 'Acquista',
+                add_to_cart: 'Aggiungi al carrello',
+                checkout: 'Vai alla cassa',
+                detail: 'Dettaglio'
+            }
+        },
         start: 0,
         total: 0,
         current: null,
@@ -96,8 +111,8 @@ export default {
             return parseInt(this.$attrs.plugin.editor.settings.rows)
         },
         lang(){
-            return language[navigator.language||'en']
-        },
+            return this.language[navigator.language||'en'] 
+        }
     },
     watch:{
         start(){
