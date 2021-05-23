@@ -1,5 +1,5 @@
 <template>
-    <div class="" v-if="products">
+    <div class="" v-if="products && lang">
     <div class="relative">
         <div class="absolute right-0 top-0 text-xs flex flex-row items-center snipcart-checkout">
             <span class="snipcart-items-count"></span>
@@ -8,7 +8,7 @@
         </div>
         <!-- <div v-if="!apikey" class="text-center w-full border-4 bg-gray-300 text-lg text-red-500">Invalid License Key</div> -->
         <h3 id="storeTop">Store</h3>
-        <!-- <p>{{ lang.products }} {{total}}</p> -->
+        <p>{{ lang.products }} {{total}}</p>
         <div class="w-full text-center cursor-pointer">
             <i class="mr-4 bi-chevron-left" @click="start > 0 ? start=start-limit : null"></i>
             <small>{{start+1}}-{{start+limit}}</small>
@@ -84,7 +84,7 @@ export default {
     name: 'WhoobeStore',
     data:()=>({
         apikey: false,
-        lang: 'en',
+        //lang: 'en',
         start: 0,
         total: 0,
         current: null,
@@ -94,15 +94,17 @@ export default {
     computed:{
         limit(){
             return parseInt(this.$attrs.plugin.editor.settings.rows)
-        }
+        },
+        lang(){
+            return language[navigator.language||'en']
+        },
     },
     watch:{
         start(){
             this.scrollTop()
-            this.$api.service('products').find ( { query : { $limit: this.limit , $skip : this.start }}).then ( result => {
-                this.products = result.data
-            })
+            this.qry()
         },
+        
         current(v){
             if ( v ){
                 window.sessionStorage.setItem('moka-product-view',JSON.stringify(v))
@@ -110,29 +112,29 @@ export default {
         }
     },
     methods:{
+        qry(){
+            this.$api.service('products').find ( { query : { $limit: this.limit , $skip : this.start }}).then ( result => {
+                this.products = result.data
+                this.total = result.total
+            })
+        },
         randomImage(name){
             return 'https://source.unsplash.com/600x400?fashion&' + name
         },
         scrollTop(){
-           // element which needs to be scrolled to
+            // element which needs to be scrolled to
             var element = document.querySelector("#storeTop");
-
             // scroll to element
             element.scrollIntoView();
         },
     },
     mounted(){
-        this.lang = language[navigator.language||'en']
+        //this.lang = language[navigator.language||'en']
         //let whoobe = JSON.parse(window.localStorage.getItem('whoobe'))
-        console.log ( this.$attrs.plugin.editor.settings )
-        
+        //console.log ( this.$attrs.plugin.editor.settings )
         //if ( this.$attrs.config.mode != 'static' ){
             //this.$http.get('products').then ( res => {
-            this.$api.service ( 'products' ).find ( { query: { $limit: this.limit , $skip: this.start }} ).then ( res => {
-                this.products = res.data 
-                console.log ( res )
-                this.total = res.total
-            })
+            this.qry()
         //} else {
         //    this.products = products
         //    this.total = products.length
