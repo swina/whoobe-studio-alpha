@@ -1,5 +1,5 @@
 <template>
-    <div class="text-sm w-full relative bg-gray-800 overflow-y-auto z-2xtop mb-2 shadow">
+    <div class="text-sm w-full relative theme-dark overflow-y-auto z-2xtop mb-2 shadow">
         <div v-if="editor.current" class="w-full z-2xtop">
             
             <div class="bg-purple-700 text-white flex flex-row items-center p-1 shadow relative p-1">

@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed bottom-0 left-0 pl-4 w-full bg-gray-800 flex flex-row items-center h-10 text-gray-300 p-1 z-highest flex flex-row items-center justify-around border-t border-gray-700">
+    <div class="fixed bottom-0 left-0 pl-4 w-full theme-dark flex flex-row items-center h-10 text-gray-300 p-1 z-highest flex flex-row items-center justify-around border-t border-gray-700">
         <div class="lg:w-1/4 md:w-1/3 w-1/2 flex justify-around flex-row items-center">
         
         <icon name="more_vert" class="text-orange-400" title="Options" 

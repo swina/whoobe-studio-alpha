@@ -22,7 +22,6 @@ const desktop =  {
             state.tabs.push ( payload )
             state.currentTab = state.tabs.length-1
             //set desktop status to open when reload
-            console.log ( 'update tabs' , state.tabs )
             window.localStorage.setItem('whoobe-desktop',JSON.stringify(state.tabs))
         },
         cloudinary_image ( state , payload ){

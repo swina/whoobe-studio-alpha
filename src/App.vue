@@ -15,16 +15,15 @@
 
     <!-- actions component: opens modal with relative action -->
     <actions/>
-
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import VuexPersistence from 'vuex-persist'
-const vuexLocal = new VuexPersistence({
-  storage: window.localStorage
-})
+//import VuexPersistence from 'vuex-persist'
+//const vuexLocal = new VuexPersistence({
+//  storage: window.localStorage
+//})
 
 export default {
   name: 'App',
@@ -35,12 +34,16 @@ export default {
     message: '',
     firstRun: false
   }),
+  computed:{
+    ...mapState ( ['user'] ),
+    
+  },
   watch: {
     //when a new message diplay 
     '$store.state.desktop.message':function(msg){
       this.setMessage ( msg )
     },
-    
+   
     message(v){
         //display message, if null or empty close 
         if ( v ){
@@ -55,6 +58,7 @@ export default {
     setMessage(msg){
       this.message = msg
     },
+   
   },
   beforeMount(){
     //populate datastore

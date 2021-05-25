@@ -4,21 +4,27 @@
         <!-- desktop -->
         <div class="hidden md:contents relative">
             <template v-for="(item,i) in el.blocks">
-                
-                    <a v-if="item.link" :href="$mapState().editor.action!='in_editor_preview'?item.link:'#'" :class="item.css">
-                        <span>{{ item.content }}</span>
+
+                    <a v-if="item.link && !item.blocks.length" :href="$mapState().editor.action!='in_editor_preview'?item.link:'#'" :class="item.css">
+                            {{ item.content }}
                     </a>
-                    <span v-if="!item.link && !item.blocks.length">{{ item.content }}</span>
-                    <div v-if="!item.link && item.hasOwnProperty('blocks') && item.blocks.length" @click="openSub(i,$event)" :class="item.css" class="relative flex flex-row items-center">
+
+                    <div v-if="!item.link && !item.blocks.length" menu-item class="relative flex flex-row items-center" :class="item.css">
                         {{ item.content }}
+                    </div>
+
+                    <div v-if="!item.link && item.blocks.length" @click="openSub(i,$event)" :class="item.css + ' menu_item item_' + item.id" class="relative flex flex-row items-center">
+                        
+                        {{ item.content }}
+                        
                         <icon v-if="el.hasOwnProperty('icons')" :name="el.icons.submenu"/>
                         <icon v-else name="expand_more"/>
                     </div>
 
 
-                    <div :ref="'submenu_'+i" submenu v-if="item.blocks && item.blocks.length" :class="isOver(i) + ' ' + el.css.submenu + ' top-0 mt-6 fixed flex flex-col z-highest'" @mouseleave="el.css.submenu_behavior?submenu=null:submenu=null" :style="overStyle(i)">
+                    <div :ref="'submenu_'+i" submenu v-if="!item.link && item.blocks && item.blocks.length" :class="isOver(i) + ' ' + el.css.submenu + ' top-0 fixed flex flex-col z-highest'" :style="overStyle(i,item.id)" @click="submenu=null">
                         
-                        <div v-if="item.blocks[0].blocks && submenu===i" @mouseleave="el.css.submenu_behavior?submenu=null:submenu=null" :style="getPos(i)">
+                        <div v-if="item.blocks[0].blocks && submenu===i" :style="getPos(i)">
                             
                             <template v-for="block in item.blocks">
                                 <block-preview-element
@@ -147,8 +153,11 @@ export default {
         isOver(i){
             return i < 0 ? 'opacity-0 invisible' : this.submenu === i ? 'opacity-100 visible' : 'opacity-0 invisible'
         },
-        overStyle(i){
-            return i < 0 ? 'height:0px;' : this.submenu === i ? 'height:auto;position:fixed;top:' + this.clientY + 'px;' : 'height:0px;'
+        overStyle(i,item_id){
+            let item = document.querySelector('.item_' + item_id)
+            let top = this.clientY
+            if ( item ) top = item.getBoundingClientRect().bottom 
+            return i < 0 ? 'height:0px;' : this.submenu === i ? 'height:auto;position:fixed;top:' + top + 'px;' : 'height:0px;'
         },
         getPos(i){
 
@@ -162,7 +171,6 @@ export default {
                 if ( ( posX + width - availableX ) > 0 ){
                     this.$refs['submenu_' + i][0].style.left = (availableX - width) + 'px'
                 }
-                console.log ( posX + width - availableX )
                 if ( ( posY + height - availableY ) > 0 ){
                     this.$refs['submenu_' + i][0].style.transform = 'translateY(-110%)'//(availableY - height - 50 ) + 'px'
                 }
@@ -177,6 +185,10 @@ export default {
         window.addEventListener('scroll',()=>{
             this.clientY = this.clientY + window.pageYOffset
         })
+        let menu_item = document.querySelector('.menu_item') 
+        if ( menu_item ){
+            this.clientY = menu_item.getBoundingClientRect().bottom
+        }
 
     }
 }

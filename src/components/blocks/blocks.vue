@@ -29,7 +29,6 @@ export default {
                     $sort: { updatedAt: -1 }
                 }
             }).then ( res => {
-                console.log ( res.total )
                 this.total = res.total
                 this.blocks = res.data
                 this.$store.dispatch ( 'dataset' , { table: 'components' , data: res.data })

@@ -1,6 +1,6 @@
 <template>
     <div class="m-4 p-4 bg-white">
-        <h3>Generate website</h3>
+        <div class="theme-dark p-1"><h3>Generate website</h3></div>
         <div class="grid grid-cols-3 border-b w-full text-sm">
             <template v-for="setting in Object.keys(project)">
                 <div class="p-1 border-t border-r border-l capitalize"> {{ setting.replaceAll('/','\/') }} </div>

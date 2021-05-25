@@ -50,7 +50,6 @@ export default {
         );
         target.appendChild(snipcartCSS);
         target.appendChild(snipcartScript);
-        console.log ( 'is loaded ???? ' , target )
         this.cart = true
     },
     mounted(){

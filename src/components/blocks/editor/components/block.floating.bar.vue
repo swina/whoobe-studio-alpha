@@ -22,7 +22,7 @@
         <i v-if="doc.hasOwnProperty('collection')" class="mr-2 material-icons hover:text-blue-500 text-base leading-4" @click="editor.action?$action():$action('loopcontrol')" title="Settings">settings</i>
 
 
-        <i v-if="doc.tag === 'document' || doc.type==='flex' || doc.type==='grid'" class="mr-2 material-icons hover:text-blue-500 text-base leading-4" @click="$action('block_add_element')" title="Add element">add</i>
+        <i v-if="doc.tag === 'document' || doc.tag==='blocks' || doc.type==='flex' || doc.type==='grid'" class="mr-2 material-icons hover:text-blue-500 text-base leading-4" @click="$action('block_add_element')" title="Add element">add</i>
 
         <i v-if="doc.type==='plugin'" class="mr-2 material-icons hover:text-blue-500 text-base leading-4" @click="$action('block_add_element')" title="Add element">add</i>
 

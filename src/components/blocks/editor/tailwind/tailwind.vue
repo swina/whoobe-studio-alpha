@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-0 cursor-pointer h-screen text-xs" :data="init">
+    <div class="mt-0 cursor-pointer h-screen text-xs theme-dark" :data="init">
 
         
         <!-- video -->

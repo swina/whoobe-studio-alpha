@@ -13,14 +13,15 @@
             {{ comp.name }} 
           </div>
 
-          <div class="w-48 h-32 bg-white" @click="selectComponent(comp.id, 'component', comp)">
+          <div class="w-48 h-32 flex flex-col items-center justify-center border border-gray-700" @click="selectComponent(comp.id, 'component', comp)">
               <img v-if="comp.image"
                 :class="'image_' + comp._id"
                 class="object-cover object-top object-left w-48 h-32"
                 :src="$imageURL(comp.image)"
                 title="Click to edit"
                 />
-            <img v-else src="../../assets/no-image.png" class="object-contain object-top object-left w-48 h-32"/>
+              <icon v-if="!comp.image" name="view_quilt" class="text-8xl m-auto"/>
+              <!-- <img v-else src="../../assets/no-image.png" class="object-contain object-top object-left w-48 h-32"/> -->
                 <!-- @click="selectComponent(comp.id, 'preview', comp)" -->
           </div>
 

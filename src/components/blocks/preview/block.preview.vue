@@ -1,5 +1,5 @@
 <template> 
-    <div :key="refreshID" :ref="doc.id" :class="pageCss(doc.css) + ' m-auto relative overflow-y-auto z-top overflow-x-hidden '" :style="stile(doc)" id="content">
+    <div :key="refreshID" :ref="doc.id" :class="pageCss(doc.css) + ' m-auto relative overflow-y-auto z-highest overflow-x-hidden '" :style="stile(doc)" id="content">
         <!-- 1st level - BLOCKS LOOP -->
         <span v-if="!doc.hasOwnProperty('slider')">
 
@@ -146,7 +146,6 @@ export default {
             stl += block.hasOwnProperty('style') ? block.style : ''
             let bg = this.background(block)
             stl += bg
-            console.log ( stl )
             return stl
         },
         background(block){
@@ -239,6 +238,7 @@ export default {
         }
     },
     mounted(){
+        console.log ( 'Preview mounted' , this.doc.id )
         window.resizeTo ( window.screen.availWidth , window.screen.availHeight )
         let lang = document.querySelector('html')
         lang.setAttribute ( 'lang' , navigator.language )

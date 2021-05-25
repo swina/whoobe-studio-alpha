@@ -34,9 +34,10 @@ export default {
     watch:{
         css(v){
             if ( !this.isContainer ) {
-                this.editor.current.css = v ? v.replaceAll('\n',' ') : v
+                
+                v ? this.editor.current.css = v ? v.replaceAll('\n',' ') : v : null
             } else {
-                this.editor.current.css.css = v ? v.replaceAll('\n',' ') : v
+                v ? this.editor.current.css.css = v ? v.replaceAll('\n',' ') : v : null
             }
         },
         container(v){
@@ -44,11 +45,11 @@ export default {
                 this.editor.current.css.container = v ? v.replaceAll('\n',' ') : v : null
         },
         stile(v){
-            this.editor.current.style = v.replaceAll('\n',' ')
+            v ? this.editor.current.style = v.replaceAll('\n',' ') : null
         }
     },
     mounted(){
-        this.stile = this.$clean(this.editor.current.style.replaceAll(' ','\n'))
+        this.stile = this.editor.current.style ? this.$clean(this.editor.current.style.replaceAll(' ','\n')) : ''
         
         // this.editor.current.css.hasOwnProperty('container') ?
         //     this.isContainer = true :

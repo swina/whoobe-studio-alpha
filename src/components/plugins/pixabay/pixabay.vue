@@ -53,8 +53,11 @@
                     </div>
                     <div v-if="!preview">Loading ...</div>
 
-                    <div>Downloads: {{ preview.downloads > 1000 ? parseInt(preview.downloads/1000) + 'K' : preview.downloads }}</div>
-                    Original {{ preview.imageWidth}} x {{ preview.imageHeight }}px</br>
+                    <div>
+                        {{ filename }}
+                    </div>
+                        Downloads: {{ preview.downloads > 1000 ? parseInt(preview.downloads/1000) + 'K' : preview.downloads }} - 
+                        Original {{ preview.imageWidth}} x {{ preview.imageHeight }}px</br>
                     <span class="text-gray-600">Max download width 1920px</span>
                 </div>
 
@@ -89,6 +92,11 @@ export default {
         ]
 
     }),
+    computed:{
+        filename(){
+            return this.preview.previewURL.split('/')[this.preview.previewURL.split('/').length-1]
+        }
+    },
     watch:{
         search(v){
             if ( v && v.length > 2) {

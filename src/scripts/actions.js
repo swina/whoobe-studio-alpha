@@ -1,4 +1,10 @@
 const actions = {
+    login: {
+        title: 'Login',
+        size: 'md',
+        position: 'modal',
+        component: 'common/login.vue'
+    },
     component_settings: {
         title: 'General settings',
         size: 'md',

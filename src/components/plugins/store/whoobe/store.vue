@@ -20,16 +20,22 @@
                 <img :src="$imageURL(product.image)"/>
                 <!-- <img :src="randomImage(product.name)" class="w-full rounded-tl rounded-tr"/> -->
                 <div class="p-4">
-                    <div class="text-sm">{{product.name}}</div>
-                    <div>$ {{product.price}}.<small>00</small></div>
+                    <div class="text-base">{{product.name}}</div>
+                    <div class="text-2xl">
+                        {{ $attrs.plugin.component.settings.currency }}
+                        <span :class="product.sale?'line-through mr-2':'font-bold'">{{parseFloat(product.price).toFixed(2)}}</span>
+                        <span v-if="product.sale" class="font-bold">{{parseFloat(product.sale).toFixed(2)}}</span>
+                        <span v-if="product.sale" class="text-sm ml-2">{{ discount(product.price,product.sale) }}</span>
+                    </div>
+                    
                 </div>
                 <div class="absolute items-center justify-center bg-gray-100 top-0 left-0 right-0 bottom-0 opacity-0 rounded-md bg-opacity-75 hover:opacity-100 animateme flex flex-row justify-between px-12">
                 <i class="material-icons snipcart-add-item moka-icon-circle text-2xl"
                     :data-item-id="product.id"
-                    :data-item-price="product.price"
+                    :data-item-price="product.sale?product.sale:product.price"
                     :data-item-url="'/store/product/' + product.id"
                     :data-item-description="product.name"
-                    :data-item-image="product.image_uri"
+                    :data-item-image="$imageURL(product.image)"
                     :data-item-name="product.name" :title="lang.add_to_cart">shopping_cart</i>
                 <i class="material-icons moka-icon-circle text-2xl" :title="lang.detail" @click="current=product">search</i>
                 <button v-if="!product.price" @click="setPrice(product.id,index)">Set price</button>
@@ -51,20 +57,25 @@
                 buttons="none"
                 @close="current=!null">
                 <div slot="title">{{ current.name }}</div>
-                <div slot="content">
+                <div slot="content" class="p-2 transition-all duration-700 ease-in-out">
                     <div class="grid md:grid-cols-3 grid-cols-1">
                     <img :src="$imageURL(current.image)" class="md:col-span-2"/>
                     <!-- <img :src="randomImage(product.name)" class="w-full rounded-tl rounded-tr"/> -->
                     <div class="p-4">
                         <div class="text-2xl">{{current.name}}</div>
                         <div class="text-sm text-gray-400">{{current.code}}</div>
-                        <div class="text-2xl my-4">$ {{current.price}}.<small>00</small></div>
+                        <div class="text-2xl my-4">
+                            {{ $attrs.plugin.component.settings.currency }}
+                            <span :class="current.sale?'line-through mr-2':'font-bold'">{{parseFloat(current.price).toFixed(2)}}</span>
+                            <span v-if="current.sale" class="font-bold">{{parseFloat(current.sale).toFixed(2)}}</span>
+                            <span v-if="current.sale" class="text-sm ml-2">{{ discount(current.price,current.sale) }}</span>
+                        </div>
                         <button class="snipcart-add-item px-2 py-2 success text-2xl"
                             :data-item-id="current.id"
-                            :data-item-price="current.price"
+                            :data-item-price="current.sale?current.sale:current.price"
                             :data-item-url="'/store/product/' + current.id"
                             :data-item-description="current.name"
-                            :data-item-image="current.image_uri"
+                            :data-item-image="$imageURL(current.image)"
                             :data-item-name="current.name" :title="lang.add_to_cart">{{lang.buy}}</button>
                     </div>
                     
@@ -140,6 +151,10 @@ export default {
             // scroll to element
             element.scrollIntoView();
         },
+        discount(price,sale){
+            let discount = (parseFloat(price)-parseFloat(sale))
+            return parseFloat(discount).toFixed(2) + '%'
+        }
     },
     mounted(){
         //this.lang = language[navigator.language||'en']
@@ -149,7 +164,6 @@ export default {
             //this.$http.get('products').then ( res => {
             this.lang = this.language[navigator.language||'en']
             !this.lang ? this.lang = this.language['en'] : null
-            console.log ( this.lang )
             this.qry()
         //} else {
         //    this.products = products

@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed z-top top-0 left-0 h-screen w-10 theme-dark flex flex-col items-start justify-start pt-8 border-r border-gray-700">
+    <div class="fixed z-top top-0 left-0 h-screen w-10 theme-dark flex flex-col items-start justify-start pt-8 border-r border-purple-900">
         <div v-for="item in menu.items" class="h-10 w-10 mb-2 flex flex-col items-center justify-center hover:text-gray-200 hover:bg-indigo-700 cursor-pointer relative" :title="item.label" @mouseover="label=item.label" :key="item.label" @click="addTab(item)">
             <icon :name="item.icon"/>
             <div v-if="item.items && label===item.label" class="absolute top-0 left-0 ml-10  z-highest w-48 bg-gray-900 flex flex-col" @mouseleave="label=null">

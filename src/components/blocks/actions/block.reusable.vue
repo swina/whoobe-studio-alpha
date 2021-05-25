@@ -8,7 +8,8 @@
                 <span class="text-sm p-1">{{ template.name.substring(0,20) }}</span>
                 <div v-if="template.image" :style="'background-image:url(' + $imageURL(template.image) + ')'" class="w-full h-24 bg-top bg-no-repeat bg-cover shadow-lg" ></div>
                 <div v-if="template.image_uri && !template.image" :style="'background-image:url(' + $imageURL(template.image_uri) + ')'" class="w-full h-24 bg-top bg-no-repeat bg-cover shadow" ></div>
-                <div v-if="!template.image && !template.image_uri" class="h-24 w-full shadow flex flex-col items-center justify-center"><div class="w-16 h-16 flex flex-col items-center justify-center  rounded-full bg-gray-300 text-gray-100">whoobe</div></div>
+                <icon v-if="!template.image && !template.image_uri" name="view_quilt" class="text-8xl text-gray-700"/>
+                <!-- <div v-if="!template.image && !template.image_uri" class="h-24 w-full shadow flex flex-col items-center justify-center"><div class="w-16 h-16 flex flex-col items-center justify-center  rounded-full bg-gray-300 text-gray-100">whoobe</div></div> -->
             </div>
         </template>
     </div>
@@ -34,7 +35,7 @@
 <script>
 import { mapState } from 'vuex' 
 export default {
-    name: 'NuxpressoMokaTemplates',
+    name: 'BlockReusable',
     props:['templates'],
     data:()=>({
         start: 0,

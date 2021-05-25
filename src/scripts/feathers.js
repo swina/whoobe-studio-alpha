@@ -17,9 +17,14 @@ const api = feathers()
   .configure(socketio(socket,{
     timeout:20000
   }))
-  //.configure(auth({ storage: window.localStorage }))
+  .configure(auth({ storage: window.localStorage }))
 
 
+  api.authenticate().then ( user => {
+    store.state.user = user
+  }).catch ( error => {
+    store.state.user = null
+  })
 
 //const apiserver = api
 
@@ -69,7 +74,6 @@ export default {
                     args[q] = qry[q]
                 })
             }
-            console.log ( args )
             //{ query : { "$limit": limit , "$skip": start }  }
             api.service ( table ).find( { query : args } ).then ( res => {
                 store.dispatch ( 'dataset' , { table: table , data: res.data })

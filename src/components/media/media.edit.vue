@@ -25,7 +25,7 @@
                 <button>Edit</button>
                 <button>Save</button>
             </div>
-            <icon name="close" class="absolute top-0 right-0 text-4xl text-gray-600" @click="$emit('close')"/>
+            <icon name="close" class="absolute top-0 right-0 -mt-8 text-4xl text-gray-600" @click="$emit('close')"/>
         </div>
     </div>
 </template>
