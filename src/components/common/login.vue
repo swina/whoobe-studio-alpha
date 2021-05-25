@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-col p-4 theme-dark">
+    <div class="flex flex-col justify-start text-left p-4 theme-dark">
         <label>Email/Username</label>
         <input type="text" v-model="username"/>
         <label>Password</label>
         <input type="password" v-model="password"/>
-        <button @click="login">Login</button>
+        <button class="m-auto px-4 py-2 my-2 text-xl" @click="login">Login</button>
     </div>
 </template>
 
