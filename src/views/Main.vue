@@ -26,7 +26,7 @@
 
 
 <script>
-// @ is an alias to /src
+import jp from 'jsonpath'
 import { mapState } from 'vuex'
 export default {
   name: 'Main',
@@ -56,6 +56,7 @@ export default {
       this.login = true
       console.log ( err )
     })
+
   },
   methods:{
     datastore(){
@@ -65,6 +66,12 @@ export default {
       this.$find('setup')
       this.$find('elements')
       this.$find('workspace')
+      this.$api.service('block-elements').find ( { query : { $limit: 200 } } ).then ( res => {
+        this.$store.dispatch ( 'dataset' , { table: 'blocks' , data: res.data } )
+        let categories = jp.query ( res.data , '$..category' )
+        console.log ( this.$arrayGroup ( res.data , 'category') )
+        console.log ( [ ...new Set(categories) ].sort() )
+      })
       this.$api.service('articles').find ( 
         { 
           query : 
@@ -75,6 +82,16 @@ export default {
       ).then ( result => {
         this.$loading()
         this.$store.dispatch ( 'dataset' , { table: 'articles' , data: result.data })
+        // let elements = this.$mapState().datastore.dataset.elements[0].moka 
+        // Object.keys ( elements ).forEach ( group => {
+        //   if ( group != 'keys' && group != 'categories' ){
+        //     elements[group].forEach ( element => {
+        //       let el = element
+        //       el.category = group
+        //       this.$api.service ( 'block-elements' ).create ( el )
+        //     })
+        //   }
+        // })
       })
     },
     doLogin(){

@@ -33,7 +33,7 @@ const menu = {
         { label: 'Collections' , icon: 'dynamic_feed' , component: 'MokaPlugins' , path: 'plugins/collections/collection.vue' , filter: 'collections' }, 
         { label: 'Settings' , icon: 'settings' , component: 'MokaSettings' , path: 'settings/settings' , filter: '' },
         { label: 'Generate' , icon: 'dynamic_form' , component: 'WhoobeGenerator' , filter: 'generate' , path: 'settings/generator' },
-        { label: 'Share'  , icon: 'share' , component: 'MokaMarketing' , path: 'tools/social/moka.social.post' , filter: '' },
+        //{ label: 'Share'  , icon: 'share' , component: 'MokaMarketing' , path: 'tools/social/moka.social.post' , filter: '' },
         
     
     ]

@@ -15,16 +15,15 @@
                 <blockquote>The system finds automatically which fonts and images (local) are used by your pages and will configure the relative generation process.</blockquote>
             </div>
         </div> 
-        <div class="p-2 text-center">
+        <div v-if="enabled" class="p-2 text-center">
             <button class="success rounded py-2 text-xl mx-auto" @click="generate">Generate</button>
         </div>
+        <h3 v-if="!enabled">This option is available only in local development</h3>
         <div class="grid grid-cols-3 gap-10" v-if="output">
             <textarea id="generated" v-model="output" style="font-family:monospace" class="text-sm w-full h-64 bg-black text-green-500 font-light col-span-2">
             </textarea>
             <textarea id="generated_errors" v-model="errors" style="font-family:monospace" class="text-base w-full h-64 bg-black text-red-400"></textarea>
         </div>
-        
-        
     </div>
 </template>
 
@@ -50,6 +49,10 @@ export default {
         },
         project(){
             return JSON.parse ( window.localStorage.getItem ( 'whoobe-workspace') )
+        },
+        enabled(){
+            if ( typeof webpackHotUpdate === 'undefined') this.$store.dispatch('message','This option is available only in development mode')
+            return typeof webpackHotUpdate != 'undefined' ? true : false 
         }
     },
     mounted(){
