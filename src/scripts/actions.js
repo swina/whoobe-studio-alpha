@@ -146,6 +146,18 @@ const actions = {
         position: 'modal',
         title: 'Plugin Settings',
         component: 'blocks/actions/block.plugin.setting'
+    },
+    block_plugin_schema: {
+        size: 'lg',
+        position: 'modal',
+        title: 'Elements',
+        component: 'blocks/actions/block.plugin.schema.vue'
+    },
+    block_link_data: {
+        size: 'md',
+        position: 'modal-top-right',
+        title: 'Data Link',
+        component: 'blocks/actions/block.data.link.vue'
     }
 }
 

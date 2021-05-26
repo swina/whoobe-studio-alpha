@@ -80,6 +80,11 @@ const schema = {
             type: "image",
             edit: true,
             list: true
+        },
+        image: {
+            type: "image",
+            edit: true,
+            list: true
         }
         
     },
@@ -341,6 +346,44 @@ const schema = {
             default: '',
             list : true,
             edit: true
+        }
+    },
+    snipcart_add_to_cart: {
+        'data-item-id' : {
+            type: 'attribute',
+            title: 'Item id',
+            required: true,
+            default: ''
+        },
+        "data-item-price" : {
+            type: 'attribute',
+            title: 'Item price',
+            required: true,
+            default : ''
+        },
+        "data-item-url" : {
+            type: 'attribute',
+            title: 'Item URL',
+            required: true,
+            default: '/store/product/',
+        },
+        "data-item-description":{
+            type: 'attribute',
+            title: 'Item description',
+            required: true,
+            default: ''
+        },
+        "data-item-image": {
+            type: 'attribute',
+            title: 'Item image url',
+            required: true,
+            default: ''
+        },
+        "data-item-name" : {
+            type: 'attribute',
+            title: 'Item name',
+            required: true,
+            default: ''
         }
     }
 }

@@ -20,8 +20,8 @@ export default {
     },
     methods:{
         logout(){
-            window.localStorage.setItem ( 'feathers-jwt' , null )
-            this.$store.state.user = null
+            window.localStorage.removeItem ( 'feathers-jwt' )
+            //this.$store.state.user = null
             this.$router.push('/')
         }
     }  

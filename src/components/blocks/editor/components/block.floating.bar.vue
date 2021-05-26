@@ -15,6 +15,8 @@
 
         <icon name="edit" v-if="doc.tag==='icon'" class="material-icons hover:text-blue-500  text-base mr-2" @click="$action('block_icon')" title="Edit"/>
 
+        <icon name="settings" v-if="doc.hasOwnProperty('data')" class="hover:text-blue-500  text-base mr-2" title="Link data" @click="$action('block_link_data')"/>
+
         <i v-if="doc.type==='image'" class="material-icons hover:text-blue-500  text-base mr-2" @click="$action('media')" title="Add image">photo</i>
 
         <i v-if="doc.hasOwnProperty('plugin')" class="transform scale-100 material-icons hover:text-blue-500  text-base mr-2" @click="$action('pluginsettings')" :title="doc.label + ' settings'">settings</i>

@@ -45,8 +45,13 @@ export default {
             !el.link ?
                 this.css = this.$cssResponsive(el.css) :
                     this.css = ''
+            if ( el.hasOwnProperty ('data') && el.data.hasOwnProperty('content') ){
+                el.content = el.data.content
+            }
+            if ( el.hasOwnProperty ('data') && el.data.hasOwnProperty('image') ){
+                el.image = el.data.image
+            }
             if ( this.$attrs.data ){
-                
                 //el.content = this.$attrs.data[el.label]
                 if ( el.type === 'image' ){
                     el.image = {

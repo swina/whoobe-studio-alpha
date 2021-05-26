@@ -19,7 +19,15 @@
                     </div>
                 </div>
             </template>
-            <div><button @click="setCollectionFields('Product')">Product</button></div>
+
+            <div>
+                <template v-for="plugin in $mapState().datastore.dataset.plugins">
+                    <div :key="plugin.general.name" class="p-1 border-b border-gray-700 capitalize hover:bg-gray-600" v-if="plugin.component.config.hasOwnProperty('schema') && plugin.component.config.schema" @click="pluginElement(plugin)">
+                        {{ plugin.general.name }}
+                    </div>
+                </template>
+                <!-- <button @click="setCollectionFields('Product')">Product</button> -->
+            </div>
             <transition name="fade">
                 <div class="nuxpresso-modal text-xs p-4 z-50 w-1/3 border relative" v-if="columns" @click="columns=!columns">
                     
@@ -457,6 +465,13 @@ export default {
                 this.$emit( 'add' , element )
             })
             
+        },
+        pluginElement ( plugin ){
+            this.$mapState().editor.schema = plugin.component.config.schema
+            if ( plugin.component.config.source ){
+                this.$mapState().editor.source = plugin.component.config.source
+            }
+            this.$action('block_plugin_schema')
         }
 
     },

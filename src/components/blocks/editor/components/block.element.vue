@@ -173,6 +173,12 @@ export default {
             return this.$attrs.debug ? '' : 'hidden'
         },
         element(){
+            if ( this.$attrs.element && this.$attrs.element.hasOwnProperty('data') && this.$attrs.element.data.hasOwnProperty('content')){
+                this.$attrs.element.content = this.$attrs.element.data.content
+            }
+            if ( this.$attrs.element && this.$attrs.element.hasOwnProperty('data') && this.$attrs.element.data.hasOwnProperty('image')){
+                this.$attrs.element.image = this.$attrs.element.data.image
+            }
             //this.$attrs.element && this.$attrs.element.css ? this.$attrs.element.css = this.$clean(this.$attrs.element.css,'md:') : null
             return this.$attrs.element  ? this.el = this.$attrs.element : false
         },  
@@ -300,7 +306,9 @@ export default {
             //this.editor.current.content = this.editor.current.content.replace(/<style.*?<\/style>/g, '')
         },
     },
-   
+    mounted(){
+      
+    }
 }
 </script>   
 

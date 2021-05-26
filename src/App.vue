@@ -62,29 +62,32 @@ export default {
   },
   beforeMount(){
     //populate datastore
-    this.$find('plugins') 
-    this.$find('settings')
-    this.$find('setup')
-    this.$find('elements')
-    this.$find('workspace')
-    this.$api.service('articles').find ( 
-      { 
-        query : 
-        {
-          $select : ['_id', 'title' , 'slug' , 'template_id' , 'homepage' , 'active' ] 
-        }
-      }
-    ).then ( result => {
-      this.$store.dispatch ( 'dataset' , { table: 'articles' , data: result.data })
-    })
-    this.$api.service ( 'workspace' ).find().then ( res => {
-      this.$store.dispatch ( 'workspace' , res )
-    })
-    if ( !window.localStorage.getItem('whoobe-workspace') ){
-      this.$api.service('workspace').find( { query: { project: 'default'} }).then ( result => {  
-        window.localStorage.setItem('whoobe-workspace',JSON.stringify(result))
-      })
-    }    /*
+    // this.$find('plugins') 
+    // this.$find('settings')
+    // this.$find('setup')
+    // this.$find('elements')
+    // this.$find('workspace')
+    // this.$api.service('articles').find ( 
+    //   { 
+    //     query : 
+    //     {
+    //       $select : ['_id', 'title' , 'slug' , 'template_id' , 'homepage' , 'active' ] 
+    //     }
+    //   }
+    // ).then ( result => {
+    //   this.$store.dispatch ( 'dataset' , { table: 'articles' , data: result.data })
+    // })
+    
+    // this.$api.service ( 'workspace' ).find().then ( res => {
+    //   this.$store.dispatch ( 'workspace' , res )
+    // })
+    
+    // if ( !window.localStorage.getItem('whoobe-workspace') ){
+    //   this.$api.service('workspace').find( { query: { project: 'default'} }).then ( result => {  
+    //     window.localStorage.setItem('whoobe-workspace',JSON.stringify(result))
+    //   })
+    // }    
+    /*
     this.$find('media')
     this.$api.service('elements').find().then ( result => {
       this.$store.dispatch ( 'dataset' , { table: 'elements' , data: result.data })
