@@ -137,6 +137,9 @@ export default {
             let route = this.$router.resolve({path: '/preview'});
             let w = window.open(route.href, 'whoobe','width=' + window.screen.availWidth );
             w.focus()
+        },
+        setTemplate(template){
+            console.log ( template )
         }
     },
     mounted(){

@@ -3,12 +3,12 @@
       <div class="m-auto text-center font-thin  m-auto">
         <img src="../assets/logo.svg" class="w-64 grayscale"/>
         <div class="text-gray-700 text-sm -mt-4w-64 text-right font-hairline">S T U D I O</div>
-        <button v-if="!login" @click="$router.push('desktop')" class="text-2xl p-4">Start</button>
+        <button v-if="$store.state.user.login" @click="$router.push('desktop')" class="text-2xl p-4">Start</button>
         <!-- <div class="tex-left">
           <login v-if="!logged" @islogged="check" class="m-auto w-64"/>
         </div> -->
       </div>
-      <div v-if="login" class="z-1 fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50"></div>
+      <!--<div v-if="!$store.state.user.login" class="z-1 fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50"></div>
       <transition name="fade">
             <div class="modal z-2 bg-white w-full md:w-1/4 text-lg flex flex-col rounded" v-if="login">
                   <div class="w-full p-1 bg-black text-white rounded-tl rounded-tr">Login</div>
@@ -20,7 +20,7 @@
                   <button class="my-4 mx-auto text-xl rounded" @click="doLogin()">Login</button>
               </div> 
             </div>
-      </transition>
+      </transition>-->
     </div>
 </template>
 
@@ -37,25 +37,18 @@ export default {
     },
     login: false,
   }),
-  computed:{
-    ...mapState ( [ 'user'] ),
-  },
  
   mounted(){
     let vm = this
-    this.$api.authenticate().then ( resp => {
-      vm.login = false
-      return resp
-    }).then ( user => {
-      //this.$store.dispatch('login',true)
-      ///this.user = user
-      this.datastore()
-      //this.loadData()
-    }).catch ( err => {
-      this.$message ( 'Authentication required!' )
-      this.login = true
-      console.log ( err )
-    })
+    // this.$api.authenticate().then ( resp => {
+    //   vm.login = false
+    //   this.$store.dispatch('login',true)
+    // }).catch ( err => {
+    //   this.$message ( 'Authentication required!' )
+    //   this.login = true
+    //   this.$store.dispatch('login',false)
+    //   console.log ( err )
+    // })
 
   },
   methods:{
@@ -101,15 +94,11 @@ export default {
             strategy: 'local'
         }).then ( resp => {
             this.$message ( 'Welcome to Whoobe !')
-            this.login = false  
-            return resp
-        }).then ( user => {
-            //this.$store.dispatch('login',true)
-            //this.user = user
-            this.datastore()
-            //this.loadData()
+            this.login = false 
+            this.$store.dispatch('login',true)
         }).catch ( err => {
             console.log ( err )
+            this.$store.dispatch('login',false)
             this.$message ( 'Login error! Check your credentials')
         })
       }

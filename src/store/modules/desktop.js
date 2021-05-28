@@ -6,7 +6,8 @@ const desktop =  {
         cloudinary_image: null,
         error: null,
         currentTab: 0,
-        loading: false
+        loading: false,
+        project: null
     },
     mutations: {
         message ( state , payload ){
@@ -38,6 +39,9 @@ const desktop =  {
         },
         loading ( state , payload ){
             state.loading = payload
+        },
+        project ( state , payload ){
+            state.project = payload
         }
     },
     actions : {
@@ -66,7 +70,10 @@ const desktop =  {
         },
         loading ( { commit } , payload ){
             commit ( 'loading' , payload ? payload : false )
-        }
+        },
+        project ( { commit } , payload ){
+            commit ( 'project' , payload )
+        },
 
     }
 }

@@ -4,6 +4,7 @@ import feathers from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
 import auth from '@feathersjs/authentication-client'
 import io from 'socket.io-client'
+import jp from 'jsonpath'
 
 const socket = io(  window.localStorage.getItem('whoobe-cms') , //'http://localhost:3030', //process.env.VUE_APP_APISERVER,
   {
@@ -103,7 +104,7 @@ export default {
               template_id : component._id
             }
           }).then ( articles => {
-            
+
             articles.data.forEach ( article => {
               api.service('articles').patch ( article._id , {
                 blocks: component
@@ -118,6 +119,38 @@ export default {
       })
     }
 
+    Vue.prototype.$projectUsage = ( ) => {
+      api.service('articles').find ( 
+        {
+            query : {
+                $limit: 200,
+                $skip:0
+            }
+        }
+      ).then ( result => {
+          let usedFonts = []
+          let usedImages = []
+          result.data.forEach ( page => {
+              let json = page.blocks.json
+              let fonts = jp.query ( json , '$..blocks[?(@.style.includes("font-family"))]' )
+              fonts.forEach ( font => {
+                  font.style.includes ( 'font-family') ?
+                      usedFonts.push ( font.style.replace('font-family:','').replaceAll('\"','') ) : null
+              })
+              let images = jp.query ( json , '$..blocks..image.url' )
+              images.forEach(img=>
+                  !img.includes('http') ?
+                      usedImages.push(img) : null
+              )
+          })
+          let project = store.state.desktop.project
+          project.fonts = [ ...new Set(usedFonts) ]
+          project.images = [ ...new Set(usedImages) ]
+          console.log ( project )
+          store.dispatch('project',project)
+          return true// { images: [ ...new Set(usedImages) ] , fonts: [ ...new Set(usedFonts)] }        
+      })
+    }
     
 
   },

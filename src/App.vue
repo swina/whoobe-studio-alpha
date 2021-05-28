@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" islogged>
     
     <router-view/>
     <!-- Global message display -->
@@ -12,9 +12,9 @@
     <loading v-if="$mapState().desktop.loading"/>
     <!-- loading icon bottom left -->
     <icon name="bubble_chart" class="animate-spin fixed bottom-0 left-0 m-2 z-highest text-gray-100" v-if="$mapState().desktop.loading"/>
-
     <!-- actions component: opens modal with relative action -->
     <actions/>
+    <main v-if="!logged"/>
   </div>
 </template>
 
@@ -32,18 +32,20 @@ export default {
   },
   data:()=>({
     message: '',
-    firstRun: false
+    firstRun: false,
+    logged: false
   }),
   computed:{
     ...mapState ( ['user'] ),
-    
   },
   watch: {
     //when a new message diplay 
     '$store.state.desktop.message':function(msg){
       this.setMessage ( msg )
     },
-   
+    '$store.state.user.login':function(login){
+      if ( !login ) this.$router.push ( 'login' )
+    },
     message(v){
         //display message, if null or empty close 
         if ( v ){
@@ -58,68 +60,15 @@ export default {
     setMessage(msg){
       this.message = msg
     },
-   
   },
-  beforeMount(){
-    //populate datastore
-    // this.$find('plugins') 
-    // this.$find('settings')
-    // this.$find('setup')
-    // this.$find('elements')
-    // this.$find('workspace')
-    // this.$api.service('articles').find ( 
-    //   { 
-    //     query : 
-    //     {
-    //       $select : ['_id', 'title' , 'slug' , 'template_id' , 'homepage' , 'active' ] 
-    //     }
-    //   }
-    // ).then ( result => {
-    //   this.$store.dispatch ( 'dataset' , { table: 'articles' , data: result.data })
-    // })
-    
-    // this.$api.service ( 'workspace' ).find().then ( res => {
-    //   this.$store.dispatch ( 'workspace' , res )
-    // })
-    
-    // if ( !window.localStorage.getItem('whoobe-workspace') ){
-    //   this.$api.service('workspace').find( { query: { project: 'default'} }).then ( result => {  
-    //     window.localStorage.setItem('whoobe-workspace',JSON.stringify(result))
-    //   })
-    // }    
-    /*
-    this.$find('media')
-    this.$api.service('elements').find().then ( result => {
-      this.$store.dispatch ( 'dataset' , { table: 'elements' , data: result.data })
+  mounted(){
+    this.$api.authenticate().then ( res => {
+        this.$store.dispatch('login',true)
+        console.log ( 'Authenticated !')
+      }).catch ( error => {
+        this.$router.push ( '/login' )
     })
-
-    this.$api.service('articles').find ( 
-      { 
-        query : 
-        {
-          $select : ['_id', 'title' , 'slug' , 'template_id' , 'homepage' , 'active' ] 
-        }
-      }
-    ).then ( result => {
-      this.$store.dispatch ( 'dataset' , { table: 'articles' , data: result.data })
-    })
-    this.$components()
-    */
-    // this.$api.service('components').find ( 
-    //   { 
-    //     query : 
-    //     {
-    //       $limit : 100,
-    //       $skip: 0,
-    //       $select : ['_id', 'name' , 'category' , 'image' , 'image_uri' , 'blocks_id' ] ,
-
-    //     }
-    //   }
-    // ).then ( result => {
-    //   this.$store.dispatch ( 'dataset' , { table: 'components' , data: result.data })
-    // })
-
-  },
+  }
 }
 </script>
 

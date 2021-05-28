@@ -1,6 +1,5 @@
 <template>
     <div class="relative"> 
-        
         <component 
             :is="component"
             :plugin="plugin"/>

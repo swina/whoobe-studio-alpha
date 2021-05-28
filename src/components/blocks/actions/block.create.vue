@@ -45,6 +45,20 @@ export default {
             }
             this.$api.service ( 'components' ).create ( component ).then ( res => {
                 console.log ( res )
+                this.$mapState().desktop.tabs.push (
+                    {
+                        component: 'blocks/editor/block.editor',
+                        name: this.component.name,
+                        filter: '',
+                        mode: 'block',
+                        icon: 'edit',
+                        blocks: component,
+                    }
+                )
+                this.$mapState().editor.current = component.json
+                this.$mapState().editor.component = component
+                this.$mapState().desktop.currentTab = this.$mapState().desktop.tabs.length - 1
+                window.localStorage.setItem('whoobe-desktop',JSON.stringify(this.$mapState().desktop.tabs))
                 this.$action()
             })
         }

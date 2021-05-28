@@ -12,6 +12,7 @@
 
 const menu = {
     items : [
+        { label: 'Home' , icon: 'grid_view' , components: 'desktop/desktop.home.vue' , path: 'desktop/desktop.home.vue' , filter: 'home'} ,
         { label: 'Blocks' , icon: 'widgets' , component: 'blocks/blocks.vue' , path: '' ,  filter: '' , 
             dataset : 'components_categories'
         },
@@ -30,7 +31,7 @@ const menu = {
         //     ]
         // }, 
         { label: 'Plugins' , icon: 'settings_input_component' , component: 'MokaPlugins' , path: 'plugins/plugins' , filter: 'plugins' }, 
-        { label: 'Collections' , icon: 'dynamic_feed' , component: 'MokaPlugins' , path: 'plugins/collections/collection.vue' , filter: 'collections' }, 
+        //{ label: 'Collections' , icon: 'dynamic_feed' , component: 'MokaPlugins' , path: 'plugins/collections/collection.vue' , filter: 'collections' }, 
         { label: 'Settings' , icon: 'settings' , component: 'MokaSettings' , path: 'settings/settings' , filter: '' },
         { label: 'Generate' , icon: 'dynamic_form' , component: 'WhoobeGenerator' , filter: 'generate' , path: 'settings/generator' },
         //{ label: 'Share'  , icon: 'share' , component: 'MokaMarketing' , path: 'tools/social/moka.social.post' , filter: '' },

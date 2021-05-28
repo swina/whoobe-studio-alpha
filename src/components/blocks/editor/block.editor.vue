@@ -242,31 +242,36 @@ export default {
                 this.$store.dispatch('message','This option is available only in development mode')
                 return 
             }
-            if ( this.articles ){
-                let inUseTemplate = this.articles.filter ( article => { 
-                    console.log ( article.component.id )
-                    return parseInt(article.component.id) === parseInt(this.component.id)
-                })
-                if ( inUseTemplate ){
-                    console.log ( 'savingPage ...')
-                    inUseTemplate.forEach ( templ => {
-                        templ.blocks = this.component
-                        this.$http.put ( 'articles/' + templ.id , templ ).then ( response => {
-                            console.log ( 'update article ' , templ.title )
-                        })
-                    })
+
+            //set current component before to save
+            this.editor.current.component = this.doc 
+            this.$store.dispatch('component',this.doc)
+           
+            //if ( this.articles ){
+                // let inUseTemplate = this.articles.filter ( article => { 
+                //     console.log ( article.component.id )
+                //     return parseInt(article.component.id) === parseInt(this.component.id)
+                // })
+                // if ( inUseTemplate ){
+                //     console.log ( 'savingPage ...')
+                //     inUseTemplate.forEach ( templ => {
+                //         templ.blocks = this.component
+                //         this.$http.put ( 'articles/' + templ.id , templ ).then ( response => {
+                //             console.log ( 'update article ' , templ.title )
+                //         })
+                //     })
+                //     this.$emit('save')
+                //     //inUseTemplate[0].blocks = this.$attrs.component
+                //     //let updateArticle = inUseTemplate[0]
+                //     //this.$http.put ( 'articles/' + updateArticle.id , updateArticle ).then ( response => {
+                //     //    this.$emit('save')
+                //     //})
+                // } else {
                     this.$emit('save')
-                    //inUseTemplate[0].blocks = this.$attrs.component
-                    //let updateArticle = inUseTemplate[0]
-                    //this.$http.put ( 'articles/' + updateArticle.id , updateArticle ).then ( response => {
-                    //    this.$emit('save')
-                    //})
-                } else {
-                    this.$emit('save')
-                }
-            } else {
-                this.$emit('save')
-            }
+                //}
+            // } else {
+            //     this.$emit('save')
+            // }
         },
         hasPages(){
             let css = 'text-red-500'
@@ -580,6 +585,7 @@ export default {
             this.$store.dispatch('setCurrent',vm.doc)
             this.$store.dispatch('selected',vm.doc.id)
         }
+        this.$store.dispatch('setComponent',this.$attrs.blocks)
         this.timer = window.setInterval (()=>{
             
             let blocks = {

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
 import Desktop from '@/components/desktop/desktop.vue' 
 import Preview from '@/components/blocks/preview/block.window.preview'
+import Login from '../views/Login.vue'
 //import Dashboard from '@/views/Dashboard.vue'
 //import Components from '@/views/Components.vue'
 //import Moka from '@/views/Moka.vue'
@@ -15,6 +16,11 @@ const routes = [
     path: '/',
     name: 'Main',
     component: Main
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   { 
     path: '/desktop',

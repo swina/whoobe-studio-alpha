@@ -97,7 +97,9 @@ export default {
                             arts.template_preview = result.image
                             arts.blocks = result
                             console.log ( arts )
-                            this.$api.service ( 'articles' ).patch ( arts._id , arts )
+                            this.$api.service ( 'articles' ).patch ( arts._id , arts ).then ( res => {
+                                console.log ( 'updated template for ' , res )
+                            })
                             count++
                         }
                     })

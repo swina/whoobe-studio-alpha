@@ -1,19 +1,19 @@
 <template>
     <div v-if="articles && cols" class="m-2">
         <div class="theme-dark" v-if="!selected">
-            <button>Create new</button>
+            <button @click="$action('articles_create')">Create new</button>
             <span class="ml-2">Category</span> <select v-model="filter" class="theme-dark w-32">
                 <option value="">all</option>
                 <option v-for="category in $mapState().datastore.dataset.setup[0].categories.articles" :value="category">{{ category }}</option>
             </select>
         </div>
         <div class="bg-gray-200 text-sm" v-if="!selected">
-            <div class="theme-dark bg-black grid" :class="'grid-cols-' + (cols.length)">
+            <div class="theme-dark bg-black grid" :class="'grid-cols-' + (cols.length+1)">
                 <div class="p-1 capitalize font-bold"  :class="field.title==='title'?'col-span-2':''" v-if="field.title!='_id'" v-for="(field,f) in cols" :key="f">{{ field.title }}</div>
                     
             </div>
             <div class="hover:bg-gray-300 cursor-pointer w-full p-1 flex flex-row border-b" v-for="article in articles" @click="loadSingleArticle(article._id)">
-                <div class="w-full grid" :class="'grid-cols-' + (cols.length)">
+                <div class="w-full grid" :class="'grid-cols-' + (cols.length+1)">
                     <div v-for="field in cols" v-if="field.title!='_id'" :class="field.title==='title'?'col-span-2':''">
                         <span v-if="field.type==='string'" :class="field.title==='title'?'font-bold':''">
                             {{ article[field.title] }}
@@ -23,6 +23,9 @@
                         <span v-if="field.type==='date'">
                             {{ article[field.title].split('T')[0] }}
                         </span>
+                    </div>
+                    <div>
+                        <button @click="deleteArticle(article._id)">Delete</button>
                     </div>
                 </div>
             </div>
@@ -93,6 +96,11 @@ export default {
             this.$api.service ( 'articles' ).get ( id ).then ( res => {
                 this.selected = res
                 //this.$mapState().datastore.currentArticle = res
+            })
+        },
+        deleteArticle(id){
+            this.$api.service ( 'articles').remove ( id ).then ( res =>{
+                this.loadArticles()
             })
         }
     },

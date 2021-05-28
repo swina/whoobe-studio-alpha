@@ -77,9 +77,11 @@ export default {
             this.fonts.push ( 'Barlow Condensed' )
         },
         generate(){
+            let project = this.project
+            project.fonts = this.fonts.join('|')
             this.output = 'Starting generation ...'
             this.errors = ''
-            this.$api.service('whoobe/build').create({project:this.project.name,uploads:this.uploads}).then ( res =>{
+            this.$api.service('whoobe/build').create({project:project.name,uploads:this.uploads,fonts:this.fonts}).then ( res =>{
                 this.output += res.data
             })
         }

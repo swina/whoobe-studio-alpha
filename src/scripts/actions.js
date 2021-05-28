@@ -1,9 +1,16 @@
+
 const actions = {
     login: {
         title: 'Login',
         size: 'md',
         position: 'modal',
         component: 'common/login.vue'
+    },
+    articles_create: {
+        title: 'Create article',
+        size: 'md',
+        position: 'modal',
+        component: 'articles/article.create.vue'
     },
     component_settings: {
         title: 'General settings',

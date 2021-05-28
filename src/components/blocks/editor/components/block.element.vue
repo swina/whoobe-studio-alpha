@@ -1,5 +1,5 @@
 <template>
-    <div editorelement v-if="element && element.label != 'Menu'" :class="$attrs.develop ? 'relative ' : ''" @dblclick="$emit('editinline',element)" :style="element.style" :data-element-tag="element.element">
+    <div editorelement v-if="element && element.label != 'Menu'" :class="$attrs.develop ? 'relative ' : ''" @dblclick="$emit('editinline',element)" :style="element.style" :data-element-tag="element.type!='plugin'?element.element:element.plugin.component.name">
 
             <block-text-inline v-if="(el.element==='p' || el.element==='div' || el.element==='span' || el.element==='h' || el.type==='button' || el.type==='download' || ( el.tag === 'article' && !el.hasOwnProperty('article') ) )  && el.element !='img' && el.type != 'video' && el.type != 'audio'" :element="el"/>
 
